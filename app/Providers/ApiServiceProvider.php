@@ -9,7 +9,6 @@
 namespace App\Providers;
 
 use App\Repositories\ArticleRepository;
-use App\Repositories\BaseRepository;
 use App\Repositories\UserRepository;
 use App\Service\ArticleService;
 use App\Service\UserService;
