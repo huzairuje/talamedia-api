@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1.0'], function () {
+    /**
+     * this Block Route For Testing without middleware
+     */
+    Route::get('all-article', 'API\ArticleController@index');
+
+    /**
+     * this Block Route For URL with Middleware Protection
+     */
+
 });
