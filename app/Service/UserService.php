@@ -11,32 +11,42 @@ namespace App\Service;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
-
 class UserService implements UserRepository
 {
+    protected $userModel;
+
+    public function __construct(User $userModel)
+    {
+        $this->userModel = $userModel;
+    }
 
     public function getAll()
     {
-        return User::all();
+        $data = $this->userModel;
+        return $data;
     }
 
     public function getId($id)
     {
-        return User::findOrFail($id);
+        $data = $this->userModel->findOrFail($id);
+        return $data;
     }
 
     public function store()
     {
-        return User::firstOrCreate();
+        $data = $this->userModel->save();
+        return $data;
     }
 
     public function update()
     {
-        // TODO: Implement update() method.
+        $data = $this->userModel->update();
+        return $data;
     }
 
     public function delete($id)
     {
-        return User::destroy($id);
+        $data = $this->userModel->destroy($id);
+        return $data;
     }
 }

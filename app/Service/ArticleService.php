@@ -13,29 +13,39 @@ use App\Repositories\ArticleRepository;
 
 class ArticleService implements ArticleRepository
 {
+    protected $articleModel;
+    public function __construct(Article $articleModel)
+    {
+        $this->articleModel = $articleModel;
+    }
 
     public function getAll()
     {
-        return Article::all();
+        $data = $this->articleModel;
+        return $data;
     }
 
     public function getId($id)
     {
-        return Article::findOrFail($id);
+        $data = $this->articleModel->find($id);
+        return $data;
     }
 
     public function store()
     {
-        return Article::save();
+        $data = $this->articleModel->save();
+        return $data;
     }
 
     public function delete($id)
     {
-        return Article::destroy($id);
+        $data = $this->articleModel->destroy($id);
+        return $data;
     }
 
     public function update()
     {
-        return Article::update();
+        $data = $this->articleModel->update();
+        return $data;
     }
 }
