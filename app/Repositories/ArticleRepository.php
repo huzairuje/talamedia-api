@@ -8,11 +8,7 @@
 
 namespace App\Repositories;
 
-interface ArticleRepository
+interface ArticleRepository extends BaseRepository
 {
-    public function getAll();
-    public function getId($id);
-    public function store();
-    public function update();
-    public function delete($id);
+
 }

@@ -9,11 +9,7 @@
 namespace App\Repositories;
 
 
-interface UserRepository
+interface UserRepository extends BaseRepository
 {
-    public function getAll();
-    public function getId($id);
-    public function store();
-    public function update();
-    public function delete($id);
+
 }
