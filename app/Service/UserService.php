@@ -8,45 +8,34 @@
 
 namespace App\Service;
 
-use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 
-class UserService implements UserRepository
+class UserService
 {
-    protected $userModel;
+    protected $userRepository;
 
-    public function __construct(User $userModel)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userModel = $userModel;
+        $this->userRepository = $userRepository;
     }
 
-    public function getAll()
+    public function addNew(Request $request)
     {
-        $data = $this->userModel;
+        $data = $this->userRepository->create($request);
         return $data;
     }
 
-    public function getId($id)
+    public function getUserById($id)
     {
-        $data = $this->userModel->findOrFail($id);
+        $data = $this->userRepository->getById($id);
         return $data;
     }
 
-    public function store()
+    public function getAllUser()
     {
-        $data = $this->userModel->save();
+        $data = $this->userRepository->getAll();
         return $data;
     }
 
-    public function update()
-    {
-        $data = $this->userModel->update();
-        return $data;
-    }
-
-    public function delete($id)
-    {
-        $data = $this->userModel->destroy($id);
-        return $data;
-    }
 }

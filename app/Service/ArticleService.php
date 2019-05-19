@@ -8,44 +8,34 @@
 
 namespace App\Service;
 
-use App\Models\Article;
 use App\Repositories\ArticleRepository;
+use Illuminate\Http\Request;
 
-class ArticleService implements ArticleRepository
+class ArticleService
 {
-    protected $articleModel;
-    public function __construct(Article $articleModel)
+    protected $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepository)
     {
-        $this->articleModel = $articleModel;
+        $this->articleRepository = $articleRepository;
+    }
+
+    public function addNew(Request $request)
+    {
+        $data = $this->articleRepository->create($request);
+        return $data;
     }
 
     public function getAll()
     {
-        $data = $this->articleModel;
+        $data = $this->articleRepository->getAll();
         return $data;
     }
 
-    public function getId($id)
+    public function getById($id)
     {
-        $data = $this->articleModel->find($id);
+        $data = $this->articleRepository->getById($id);
         return $data;
     }
 
-    public function store()
-    {
-        $data = $this->articleModel->save();
-        return $data;
-    }
-
-    public function delete($id)
-    {
-        $data = $this->articleModel->destroy($id);
-        return $data;
-    }
-
-    public function update()
-    {
-        $data = $this->articleModel->update();
-        return $data;
-    }
 }

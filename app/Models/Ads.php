@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Ads extends Model
 {
-    protected $table = 'articles';
+    protected $table = 'ads';
     protected $primaryKay = 'id';
 
     const CREATED_AT = 'created_at';
@@ -18,6 +18,6 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'source', 'category_type', 'title', 'content', 'description', 'slug', 'image_banner_url', 'author'
+        'name', 'slug', 'image_url',
     ];
 }

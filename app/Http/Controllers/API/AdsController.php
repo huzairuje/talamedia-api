@@ -1,29 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Library\ApiBaseResponse;
-use App\Service\ArticleService;
+use App\Service\AdsService;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Exception;
 
-class ArticleController extends Controller
+class AdsController extends Controller
 {
-    protected $articleService;
+    protected $adsService;
+    protected $adsRepository;
     protected $apiBaseResponse;
 
-    public function __construct(ArticleService $articleService,
+    public function __construct(AdsService $adsService,
                                 ApiBaseResponse $apiBaseResponse)
     {
-        $this->articleService = $articleService;
+        $this->adsService = $adsService;
         $this->apiBaseResponse = $apiBaseResponse;
     }
 
     public function index()
     {
         try {
-            $data = $this->articleService->getAll();
+            $data = $this->adsService->getAll();
             $response = $this->apiBaseResponse->listPaginate($data, 10);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
@@ -32,10 +34,10 @@ class ArticleController extends Controller
         }
     }
 
-    public function getArticleById($id)
+    public function getAdsById($id)
     {
         try {
-            $data = $this->articleService->getById($id);
+            $data = $this->adsService->getById($id);
             $response = $this->apiBaseResponse->singleData($data, []);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
