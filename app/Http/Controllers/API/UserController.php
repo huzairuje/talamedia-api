@@ -3,26 +3,27 @@
 namespace App\Http\Controllers\API;
 
 use App\Library\ApiBaseResponse;
-use App\Service\UserService;
+use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Exception;
 
 class UserController extends Controller
 {
-    protected $userService;
+    protected $userRepository;
     protected $apiBaseResponse;
 
-    public function __construct(UserService $userService, ApiBaseResponse $apiBaseResponse)
+    public function __construct(ApiBaseResponse $apiBaseResponse,
+                                UserRepository $userRepository)
     {
-        $this->userService = $userService;
         $this->apiBaseResponse = $apiBaseResponse;
+        $this->userRepository = $userRepository;
     }
 
     public function getUserById($id)
     {
         try {
-            $data = $this->userService->getUserById($id);
+            $data = $this->userRepository->getUserById($id);
             $response = $this->apiBaseResponse->singleData($data, []);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
@@ -34,7 +35,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $data = $this->userService->getAllUser();
+            $data = $this->userRepository->getAllUser();
             $response = $this->apiBaseResponse->listPaginate($data, 10);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {

@@ -4,26 +4,26 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Library\ApiBaseResponse;
-use App\Service\ArticleService;
+use App\Repositories\ArticleRepository;
 use Illuminate\Http\Response;
 use Exception;
 
 class ArticleController extends Controller
 {
-    protected $articleService;
+    protected $articleRepository;
     protected $apiBaseResponse;
 
-    public function __construct(ArticleService $articleService,
+    public function __construct(ArticleRepository $articleRepository,
                                 ApiBaseResponse $apiBaseResponse)
     {
-        $this->articleService = $articleService;
+        $this->articleRepository = $articleRepository;
         $this->apiBaseResponse = $apiBaseResponse;
     }
 
     public function index()
     {
         try {
-            $data = $this->articleService->getAll();
+            $data = $this->articleRepository->getAll();
             $response = $this->apiBaseResponse->listPaginate($data, 10);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
@@ -35,7 +35,7 @@ class ArticleController extends Controller
     public function getArticleById($id)
     {
         try {
-            $data = $this->articleService->getById($id);
+            $data = $this->articleRepository->getById($id);
             $response = $this->apiBaseResponse->singleData($data, []);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {

@@ -3,29 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Library\ApiBaseResponse;
-use App\Service\AdsService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\AdsRepository;
 use Illuminate\Http\Response;
 use Exception;
 
 class AdsController extends Controller
 {
-    protected $adsService;
     protected $adsRepository;
     protected $apiBaseResponse;
 
-    public function __construct(AdsService $adsService,
+    public function __construct(AdsRepository $adsRepository,
                                 ApiBaseResponse $apiBaseResponse)
     {
-        $this->adsService = $adsService;
+        $this->adsRepository = $adsRepository;
         $this->apiBaseResponse = $apiBaseResponse;
     }
 
     public function index()
     {
         try {
-            $data = $this->adsService->getAll();
+            $data = $this->adsRepository->getAll();
             $response = $this->apiBaseResponse->listPaginate($data, 10);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
@@ -37,7 +35,7 @@ class AdsController extends Controller
     public function getAdsById($id)
     {
         try {
-            $data = $this->adsService->getById($id);
+            $data = $this->adsRepository->getById($id);
             $response = $this->apiBaseResponse->singleData($data, []);
             return response($response, Response::HTTP_OK);
         } catch (Exception $e) {
