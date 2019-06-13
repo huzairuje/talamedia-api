@@ -9,6 +9,7 @@
 ## First Section
 
 Write something cool..
+> {info} Here is an example of info message
 
 
 <a name="section-2"></a>
